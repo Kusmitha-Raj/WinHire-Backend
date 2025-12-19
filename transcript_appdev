@@ -1,0 +1,42 @@
+Good morning Ananya, can you hear me clearly.
+Yes, good morning, I can hear you clearly.
+Great, thanks for joining on time. How are you doing today.
+I’m doing well, thank you. A little nervous but excited to be here.
+That’s completely normal. Let’s start with a brief introduction about yourself.
+Sure. My name is Ananya Rao, I’m from Pune, Maharashtra. I recently completed my Bachelor of Engineering in Information Technology from Pune Institute of Computer Technology, affiliated with Savitribai Phule Pune University. During my college years I developed a strong interest in application development, especially full stack development using .NET and React. I’ve done two internships and several academic and personal projects that helped me build a solid foundation in backend and frontend technologies.
+Sounds good. What motivated you to apply for the Software Design Trainee role in our App Development Practice.
+I’m particularly interested in this role because it aligns very well with my technical background and career goals. I enjoy building applications end to end, from designing APIs to creating user-friendly interfaces. Your organization’s focus on scalable and enterprise-grade applications really excites me, and as a fresher I feel this role would give me strong exposure to real-world design patterns, coding standards, and collaborative development.
+Alright. Since you’re a fresher, internships play an important role. Can you walk me through your first internship experience.
+Yes. My first internship was with CodeCraft Solutions in Mumbai as a Software Development Intern. I primarily worked on backend development using C# and ASP.NET Web API. I helped develop RESTful APIs and worked closely with the senior developers to understand how business logic is structured. I also optimized a few SQL queries which improved response time slightly. Apart from coding, I participated in code reviews and learned how clean code and proper naming conventions make a big difference in maintainability.
+What was the biggest learning from that internship.
+The biggest learning was understanding how production-level code differs from academic projects. Things like error handling, logging, performance optimization, and writing testable code were things I got exposed to for the first time. It also helped me understand teamwork and communication in a professional environment.
+Good. Tell me about your second internship.
+My second internship was with AppSphere Technologies in Pune, where I worked as a Full Stack Developer Intern. Here I got the opportunity to work on both frontend and backend. I used ASP.NET Core for backend services and React for the frontend. I implemented APIs, integrated them with React components, and worked on JWT-based authentication and role-based authorization. I also collaborated with UI designers to improve user experience, which taught me how important frontend usability is.
+You mentioned JWT authentication. Can you briefly explain how it works.
+Sure. JWT or JSON Web Token is a stateless authentication mechanism. When a user logs in successfully, the server generates a token containing claims like user id and role, signs it using a secret key, and sends it back to the client. The client stores the token, usually in memory or local storage, and sends it with each subsequent request in the Authorization header. The server validates the token signature and expiry before allowing access to protected resources.
+Good explanation. Let’s talk about your projects. Pick one project you’re most proud of.
+I would say the Employee Management System. It was a full-stack project built using ASP.NET Core, C#, SQL Server, and React. It had features like employee CRUD operations, role-based access, and secure login. I implemented the backend APIs, designed the database schema, and worked on the frontend UI as well. It helped me understand how different layers of an application interact with each other.
+How did you structure the backend for that project.
+I followed a layered architecture. There was a controller layer for handling HTTP requests, a service layer for business logic, and a repository layer for database interactions using Entity Framework Core. This separation made the code cleaner and easier to maintain.
+Nice. Since DSA is mentioned in your skills, how comfortable are you with data structures and algorithms.
+I would say I have a good foundational understanding. I’ve practiced common data structures like arrays, linked lists, stacks, queues, trees, and hash maps. I’ve also solved problems related to sorting, searching, recursion, and basic dynamic programming. I even built a small DSA Problem Solver Toolkit to visualize some of these concepts, which helped me learn better.
+Can you explain the difference between an array and a linked list.
+Yes. An array stores elements in contiguous memory locations, which allows constant-time access using an index, but resizing is costly. A linked list stores elements as nodes with pointers to the next node, so memory doesn’t have to be contiguous. Insertions and deletions are easier in linked lists, but accessing an element takes linear time since traversal is required.
+Good. Moving to frontend, what do you like about React.
+I like React because of its component-based architecture. It allows us to break the UI into reusable components, which improves maintainability. Features like hooks make state and side-effect management simpler, and the virtual DOM helps with performance by minimizing direct DOM manipulation.
+How do you manage state in React.
+For smaller applications, I use local component state with useState and useEffect hooks. For slightly larger apps, I lift state up to parent components. I’ve also worked with Redux at a basic level to manage global state when multiple components need access to the same data.
+Tell me about a challenge you faced during one of your projects and how you solved it.
+In my Online Learning Platform project, handling authentication and protected routes was challenging initially. I struggled with maintaining user sessions across page refreshes. I resolved this by properly storing JWT tokens and implementing route guards on the frontend, along with middleware validation on the backend. I also referred to official documentation and tested edge cases to ensure security.
+That’s good problem-solving. How do you usually debug issues.
+I start by trying to reproduce the issue consistently. Then I use logs, breakpoints, and debugging tools like Visual Studio debugger or browser dev tools. I also isolate the problem by checking one layer at a time, whether it’s frontend, backend, or database. If needed, I look at documentation or community forums.
+Since you’re applying for a trainee role, learning ability is important. How do you keep yourself updated.
+I regularly follow tech blogs, official documentation, and YouTube channels related to .NET and React. I also try to build small projects whenever I learn something new. Additionally, contributing to open-source projects on GitHub has helped me learn from other developers’ code.
+Good to hear. Are you comfortable working in a team environment.
+Yes, definitely. During internships and college projects, I worked in teams where we used Git for version control and conducted regular stand-ups. I enjoy collaboration and believe good communication helps avoid many issues.
+What do you expect from this role if selected.
+I expect strong mentorship, exposure to real-world projects, and opportunities to improve my design and coding skills. I’m eager to learn best practices and contribute meaningfully to the team as I grow.
+Do you have any questions for us.
+Yes, I’d like to know how training and mentorship are structured for freshers in this role, and what kind of projects trainees usually get to work on initially.
+That’s a good question. We’ll cover that shortly. Thank you Ananya, that’s all from my side.
+Thank you so much for the opportunity. It was great speaking with you.

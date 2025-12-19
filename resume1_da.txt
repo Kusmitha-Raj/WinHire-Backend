@@ -1,0 +1,151 @@
+{
+  "personal_information": {
+    "full_name": "Aarav Mehta",
+    "current_location": "Bengaluru, Karnataka, India",
+    "email": "aarav.mehta.analytics@gmail.com",
+    "phone_number": "+91-98765-43210",
+    "linkedin_url": "https://www.linkedin.com/in/aarav-mehta-data",
+    "github_url": "https://github.com/aaravmehta-data",
+    "portfolio_website": "https://aaravmehta.dev"
+  },
+  "career_objective": "Detail-oriented and highly motivated Software Design Trainee aspiring to join the Data Analytics Practice. Equipped with strong foundations in data engineering, analytics, and cloud-based data platforms, seeking to contribute to scalable data solutions while continuously learning and growing in a professional environment.",
+  "education": {
+    "degree": "Bachelor of Technology (B.Tech)",
+    "major": "Computer Science and Engineering",
+    "university": "Visvesvaraya Technological University",
+    "college": "Ramaiah Institute of Technology",
+    "graduation_year": 2024,
+    "cgpa": 8.4
+  },
+  "technical_skills": {
+    "programming_languages": [
+      "Python",
+      "SQL"
+    ],
+    "data_engineering_and_analytics": [
+      "PySpark",
+      "Azure Databricks",
+      "Azure Data Factory",
+      "SQL Server Management Studio (SSMS)"
+    ],
+    "databases": [
+      "Microsoft SQL Server",
+      "Azure SQL Database"
+    ],
+    "cloud_platforms": [
+      "Microsoft Azure"
+    ],
+    "tools_and_technologies": [
+      "Git",
+      "GitHub",
+      "Power BI (Basic)",
+      "VS Code"
+    ],
+    "concepts": [
+      "ETL Pipelines",
+      "Data Warehousing",
+      "Data Modeling",
+      "Big Data Processing",
+      "Data Cleaning and Transformation"
+    ]
+  },
+  "internship_experience": [
+    {
+      "role": "Data Analytics Intern",
+      "company": "CloudNova Solutions",
+      "location": "Bengaluru, India",
+      "duration": "Jan 2024 - Apr 2024",
+      "responsibilities": [
+        "Developed ETL pipelines using Azure Data Factory to ingest data from multiple sources",
+        "Performed data transformations using PySpark on Azure Databricks",
+        "Optimized SQL queries in SSMS to improve reporting performance by 25%",
+        "Collaborated with senior analysts to prepare datasets for business dashboards"
+      ]
+    },
+    {
+      "role": "Data Engineering Intern",
+      "company": "InsightEdge Technologies",
+      "location": "Hyderabad, India",
+      "duration": "Jun 2023 - Aug 2023",
+      "responsibilities": [
+        "Built and maintained SQL Server databases for analytical use cases",
+        "Implemented data validation checks and handled data quality issues",
+        "Worked on batch data processing using PySpark",
+        "Documented data workflows and pipeline designs"
+      ]
+    }
+  ],
+  "academic_and_personal_projects": [
+    {
+      "project_title": "Retail Sales Data Analytics Pipeline",
+      "technologies_used": [
+        "Azure Data Factory",
+        "Azure Databricks",
+        "PySpark",
+        "SQL"
+      ],
+      "description": "Designed an end-to-end data pipeline to ingest, transform, and analyze retail sales data, enabling trend analysis and performance reporting."
+    },
+    {
+      "project_title": "Customer Churn Analysis",
+      "technologies_used": [
+        "PySpark",
+        "SQL",
+        "Azure Databricks"
+      ],
+      "description": "Analyzed customer behavior data to identify churn patterns and generate insights for retention strategies."
+    },
+    {
+      "project_title": "Data Warehouse Design for E-Commerce Platform",
+      "technologies_used": [
+        "SQL Server",
+        "SSMS"
+      ],
+      "description": "Designed star schema-based data warehouse and implemented fact and dimension tables for analytical querying."
+    },
+    {
+      "project_title": "Log Data Processing Using PySpark",
+      "technologies_used": [
+        "PySpark",
+        "Azure Databricks"
+      ],
+      "description": "Processed large-scale application log data to extract usage metrics and system performance indicators."
+    },
+    {
+      "project_title": "Automated Data Ingestion Framework",
+      "technologies_used": [
+        "Azure Data Factory",
+        "SQL"
+      ],
+      "description": "Created a metadata-driven framework for automating ingestion of structured data from multiple sources."
+    }
+  ],
+  "certifications": [
+    {
+      "certification_name": "Microsoft Azure Data Fundamentals (DP-900)",
+      "issuing_organization": "Microsoft",
+      "year": 2024
+    }
+  ],
+  "soft_skills": [
+    "Analytical Thinking",
+    "Problem Solving",
+    "Effective Communication",
+    "Team Collaboration",
+    "Quick Learner"
+  ],
+  "extracurricular_and_achievements": [
+    "Winner of college-level Data Analytics Hackathon 2023",
+    "Active member of college Data Science Club",
+    "Conducted peer workshops on SQL and data analytics basics"
+  ],
+  "languages_known": [
+    "English",
+    "Hindi",
+    "Kannada"
+  ],
+  "availability": {
+    "employment_type": "Full-time",
+    "notice_period": "Immediate"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "personal_information": {
+    "full_name": "Ananya Rao",
+    "current_location": "Pune, Maharashtra, India",
+    "email": "ananya.rao.dev@gmail.com",
+    "phone_number": "+91-91234-56789",
+    "linkedin_url": "https://www.linkedin.com/in/ananya-rao-dev",
+    "github_url": "https://github.com/ananyarao-dev",
+    "portfolio_website": "https://ananyarao.dev"
+  },
+  "career_objective": "Enthusiastic and detail-driven Software Design Trainee aspiring to join the App Development Practice. Strong foundation in full-stack application development using .NET and modern JavaScript frameworks, with a keen interest in building scalable, user-centric applications and continuously enhancing problem-solving skills.",
+  "education": {
+    "degree": "Bachelor of Engineering (B.E.)",
+    "major": "Information Technology",
+    "university": "Savitribai Phule Pune University",
+    "college": "Pune Institute of Computer Technology",
+    "graduation_year": 2024,
+    "cgpa": 8.6
+  },
+  "technical_skills": {
+    "programming_languages": [
+      "C#",
+      "JavaScript",
+      "TypeScript"
+    ],
+    "frameworks_and_libraries": [
+      ".NET Core",
+      "ASP.NET MVC",
+      "React.js",
+      "Entity Framework Core"
+    ],
+    "frontend_technologies": [
+      "HTML5",
+      "CSS3",
+      "React Hooks",
+      "Redux (Basic)"
+    ],
+    "backend_and_api": [
+      "RESTful APIs",
+      "ASP.NET Web API"
+    ],
+    "databases": [
+      "SQL Server",
+      "SQLite"
+    ],
+    "tools_and_platforms": [
+      "Visual Studio",
+      "VS Code",
+      "Git",
+      "GitHub",
+      "Postman"
+    ],
+    "core_concepts": [
+      "Data Structures and Algorithms",
+      "Object-Oriented Programming",
+      "Design Patterns (Basic)",
+      "MVC Architecture",
+      "Authentication and Authorization"
+    ]
+  },
+  "internship_experience": [
+    {
+      "role": "Full Stack Developer Intern",
+      "company": "AppSphere Technologies",
+      "location": "Pune, India",
+      "duration": "Jan 2024 - Apr 2024",
+      "responsibilities": [
+        "Developed and enhanced web applications using ASP.NET Core and React.js",
+        "Built RESTful APIs and integrated them with frontend components",
+        "Implemented JWT-based authentication and role-based authorization",
+        "Collaborated with UI/UX designers to improve application usability"
+      ]
+    },
+    {
+      "role": "Software Development Intern",
+      "company": "CodeCraft Solutions",
+      "location": "Mumbai, India",
+      "duration": "Jun 2023 - Aug 2023",
+      "responsibilities": [
+        "Worked on backend services using C# and ASP.NET Web API",
+        "Optimized database queries and improved application performance",
+        "Wrote unit tests and participated in code reviews",
+        "Assisted in migrating legacy modules to .NET Core"
+      ]
+    }
+  ],
+  "academic_and_personal_projects": [
+    {
+      "project_title": "Employee Management System",
+      "technologies_used": [
+        "ASP.NET Core",
+        "C#",
+        "SQL Server",
+        "React"
+      ],
+      "description": "Developed a full-stack web application for managing employee records, roles, and permissions with secure authentication."
+    },
+    {
+      "project_title": "Online Learning Platform",
+      "technologies_used": [
+        "React",
+        "TypeScript",
+        ".NET Web API"
+      ],
+      "description": "Built a scalable e-learning platform with course management, user enrollment, and progress tracking features."
+    },
+    {
+      "project_title": "Expense Tracker Application",
+      "technologies_used": [
+        "React",
+        "JavaScript",
+        "ASP.NET Core"
+      ],
+      "description": "Created a responsive expense tracking application with data visualization and category-wise spending analysis."
+    },
+    {
+      "project_title": "Library Management System",
+      "technologies_used": [
+        "C#",
+        "ASP.NET MVC",
+        "SQL Server"
+      ],
+      "description": "Implemented a CRUD-based library system with book inventory, issue tracking, and admin dashboards."
+    },
+    {
+      "project_title": "DSA Problem Solver Toolkit",
+      "technologies_used": [
+        "C#",
+        "JavaScript"
+      ],
+      "description": "Developed a console and web-based toolkit to practice and visualize common data structures and algorithms."
+    }
+  ],
+  "certifications": [
+    {
+      "certification_name": "Microsoft Certified: Azure Developer Associate (AZ-204)",
+      "issuing_organization": "Microsoft",
+      "year": 2024
+    }
+  ],
+  "soft_skills": [
+    "Problem Solving",
+    "Logical Thinking",
+    "Effective Communication",
+    "Team Collaboration",
+    "Time Management"
+  ],
+  "extracurricular_and_achievements": [
+    "Finalist in Smart India Hackathon 2023 (Software Edition)",
+    "Active contributor to open-source .NET projects on GitHub",
+    "Mentored juniors in Data Structures and Algorithms"
+  ],
+  "languages_known": [
+    "English",
+    "Hindi",
+    "Marathi"
+  ],
+  "availability": {
+    "employment_type": "Full-time",
+    "notice_period": "Immediate"
+  }
+}

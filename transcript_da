@@ -1,0 +1,50 @@
+Good morning Aarav, can you hear me properly.
+Yes, good morning, I can hear you clearly.
+Great. Thanks for joining the interview today. How are you feeling.
+I’m feeling good, a bit nervous but looking forward to the discussion.
+That’s perfectly fine. Let’s start with a brief introduction about yourself.
+Sure. My name is Aarav Mehta and I’m from Bengaluru, Karnataka. I recently completed my B.Tech in Computer Science and Engineering from Ramaiah Institute of Technology under VTU. During my academics, I developed a strong interest in data analytics and data engineering, especially working with cloud-based data platforms like Azure. I’ve completed two internships and multiple projects focused on ETL pipelines, data processing, and analytics.
+Alright. What made you choose data analytics as your career path.
+Initially, I was interested in general software development, but during my coursework I found data-related subjects more engaging. I enjoyed working with data, understanding patterns, and building pipelines that convert raw data into meaningful insights. When I started working with SQL and later with PySpark and Azure tools, I realized I liked solving data-related problems more than purely UI-based development.
+That makes sense. You’ve applied for the Software Design Trainee role in the Data Analytics Practice. What do you understand about this role.
+From my understanding, this role involves designing, building, and maintaining data pipelines, working on data transformation and analytics workflows, and supporting business intelligence and reporting needs. It also requires understanding data models, cloud platforms, and collaborating with stakeholders to deliver scalable data solutions.
+Good. Let’s talk about your internship experiences. Can you explain your role at InsightEdge Technologies.
+Yes. At InsightEdge Technologies, I worked as a Data Engineering Intern. My responsibilities included building and maintaining SQL Server databases for analytical use cases. I worked on batch data processing using PySpark, where we processed large datasets and applied transformations. I also implemented data validation checks to ensure data quality and documented the data workflows so that the team could easily understand and maintain them.
+What kind of data were you working with there.
+Mostly structured data related to business transactions and customer data. It included sales data, user activity data, and some operational datasets that were used for internal reporting and analysis.
+Did you face any challenges during this internship.
+Yes, one major challenge was handling data quality issues. There were cases of missing values and inconsistent formats. I learned how to handle these using PySpark transformations and SQL queries. I also learned the importance of validating data at different stages of the pipeline to avoid downstream issues.
+Good learning. Tell me about your second internship at CloudNova Solutions.
+At CloudNova Solutions, I worked as a Data Analytics Intern. I was involved in developing ETL pipelines using Azure Data Factory to ingest data from various sources. I used Azure Databricks with PySpark for data transformations. I also worked on optimizing SQL queries in SSMS, which helped improve report performance by around 25 percent. Additionally, I collaborated with senior analysts to prepare clean datasets for dashboards and reports.
+How comfortable are you with Azure Data Factory.
+I’m quite comfortable with the basics. I’ve created pipelines, linked services, and datasets. I’ve worked with different activities like copy data, data flow, and triggers. I also understand how to monitor pipeline runs and handle failures using retry logic and logging.
+Can you explain a simple ETL pipeline you built.
+Sure. In one pipeline, data was ingested from an on-prem SQL Server database using a self-hosted integration runtime. The raw data was stored in Azure Data Lake. Then, using Databricks notebooks, I applied transformations like filtering, aggregations, and schema standardization using PySpark. Finally, the transformed data was loaded into Azure SQL Database for reporting purposes.
+Sounds good. Let’s move to your projects. Can you describe the Retail Sales Data Analytics Pipeline project.
+Yes. In this project, I designed an end-to-end pipeline for retail sales data. The data came from multiple sources such as CSV files and SQL databases. I used Azure Data Factory for ingestion and orchestration, Azure Databricks for transformation using PySpark, and SQL for querying the final data. The goal was to enable trend analysis like monthly sales, top-performing products, and regional performance.
+How did you design the data model for reporting.
+I used a star schema approach with a central fact table containing sales transactions and multiple dimension tables like product, customer, time, and location. This design made analytical queries more efficient and easier to understand.
+Good. You’ve mentioned PySpark in many places. What advantages does PySpark offer.
+PySpark allows us to process large datasets efficiently using distributed computing. It is faster than traditional single-node processing and provides high-level APIs for data transformations. It also integrates well with cloud platforms like Azure Databricks, making it suitable for big data processing.
+Can you explain the difference between Spark DataFrame and RDD.
+RDD is a low-level distributed data structure that provides more control but requires more code. DataFrames are higher-level abstractions with a schema, which makes them easier to use and optimize. Spark’s Catalyst optimizer works with DataFrames to improve performance, which is why DataFrames are preferred in most use cases.
+Nice explanation. How strong are you in SQL.
+I would say I have a strong working knowledge of SQL. I’m comfortable writing complex queries involving joins, subqueries, window functions, aggregations, and indexing. I’ve used SQL extensively for data analysis, validation, and performance tuning.
+Can you give an example of query optimization you did.
+In one case, a report query was taking a long time to execute. I analyzed the execution plan and identified missing indexes. After adding appropriate indexes and rewriting a subquery into a join, the query performance improved significantly.
+That’s good. Have you worked with Power BI.
+I have basic experience with Power BI. I’ve created simple dashboards and reports by connecting to SQL Server databases, creating measures, and using basic DAX functions.
+How do you ensure data quality in your pipelines.
+I ensure data quality by adding validation checks at different stages. This includes checking for null values, enforcing schema consistency, validating data ranges, and logging invalid records separately. I also prefer writing unit-level checks in PySpark where possible.
+Good approach. Since you are a fresher, learning is important. How do you usually learn new tools or technologies.
+I usually start with official documentation to understand the fundamentals. Then I try to implement small hands-on examples. I also refer to blogs, online courses, and GitHub repositories. Building small projects helps me gain confidence in new technologies.
+Tell me about a situation where you worked in a team.
+During my internships and college projects, I worked in teams of three to five members. We used Git for version control and followed basic agile practices like daily updates and task tracking. I usually took responsibility for data-related tasks and coordinated with others to ensure smooth integration.
+How do you handle feedback or criticism.
+I see feedback as an opportunity to improve. If someone points out an issue in my work, I try to understand it objectively and correct it. During internships, code reviews helped me improve my coding standards significantly.
+Good mindset. What are your expectations from this role if selected.
+I expect hands-on exposure to real-world data problems, guidance from experienced professionals, and opportunities to work on scalable data solutions. I want to strengthen my skills in data engineering and analytics while contributing to the team’s goals.
+Do you have any questions for us.
+Yes, I’d like to know what kind of projects freshers typically work on in the Data Analytics Practice and how learning and mentorship are structured.
+That’s a good question. We’ll discuss that with you if you move to the next round. Thank you Aarav, that’s all from my side.
+Thank you very much for the opportunity. It was a pleasure speaking with you.

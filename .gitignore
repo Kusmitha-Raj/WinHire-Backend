@@ -1,0 +1,51 @@
+# WinHire - Combined .gitignore
+
+###################
+# Backend (.NET)
+###################
+bin/
+obj/
+*.db
+*.db-shm
+*.db-wal
+*.user
+*.suo
+.vs/
+*.log
+
+###################
+# Frontend (Node)
+###################
+node_modules/
+dist/
+build/
+.cache/
+*.local
+.vite/
+.DS_Store
+
+###################
+# Python (Agents)
+###################
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv
+
+###################
+# IDE
+###################
+.vscode/
+.idea/
+*.swp
+*.swo
+
+###################
+# OS
+###################
+Thumbs.db
+.DS_Store

@@ -1,0 +1,155 @@
+:root{
+  --bg:#0e1220;
+  --card:#141a2d;
+  --primary:#6c63ff;
+  --border:#222a45;
+  --text:#e5e8ff;
+  --sub:#9ba3c7;
+  --green:#28c76f;
+  --yellow:#fbbf24;
+}
+
+body{
+  background:var(--bg);
+  color:white;
+  margin:0;
+  font-family:Segoe UI, Roboto, Arial;
+}
+
+.app{
+  display:flex;
+  height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:#0b0f1c;
+  display:flex;
+  flex-direction:column;
+  padding:20px;
+  gap:20px;
+  border-right:1px solid var(--border);
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+}
+
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  flex:1;
+}
+
+.menu a{
+  padding:10px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  color:var(--sub);
+}
+
+.menu a:hover,
+.menu a.active{
+  background:#1c2441;
+  color:white;
+}
+
+.section{
+  color:var(--yellow);
+  font-size:14px;
+  margin-top:10px;
+}
+
+/* PROFILE */
+.bottom{
+  margin-top:auto;
+}
+.profile{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:15px;
+  background:#10182f;
+  border-radius:10px;
+}
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#1c2441;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  padding:30px;
+  overflow-y:auto;
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.header h1{
+  margin:0;
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  margin:25px 0;
+}
+
+.statCard{
+  background:var(--card);
+  padding:20px;
+  border-radius:16px;
+  border:1px solid var(--border);
+}
+.statTitle{
+  color:var(--sub);
+}
+.statValue{
+  font-size:26px;
+  font-weight:700;
+}
+
+/* LIST */
+.listCard{
+  background:var(--card);
+  padding:18px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  margin-top:10px;
+}
+
+.listTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.badge{
+  padding:6px 12px;
+  border-radius:20px;
+}
+
+.badge.green{
+  background:#1f7a45;
+}
+.badge.blue{
+  background:#2a3fc4;
+}
+.badge.yellow{
+  background:#7a5a13;
+}

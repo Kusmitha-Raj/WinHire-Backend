@@ -163,6 +163,29 @@ public class ApplicationsController : ControllerBase
     }
 
     /// <summary>
+    /// Update application decision (Select/Reject/On Hold)
+    /// </summary>
+    [HttpPut("{id}/decision")]
+    public async Task<ActionResult<Application>> UpdateApplicationDecision(
+        int id,
+        [FromBody] DecisionRequest request)
+    {
+        try
+        {
+            var updated = await _applicationService.UpdateApplicationStatusAsync(id, request.Decision);
+            if (updated == null)
+                return NotFound(new { message = $"Application with ID {id} not found" });
+
+            return Ok(updated);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating application decision {Id}", id);
+            return StatusCode(500, new { message = "An error occurred while updating the application decision" });
+        }
+    }
+
+    /// <summary>
     /// Delete application
     /// </summary>
     [HttpDelete("{id}")]
@@ -182,4 +205,9 @@ public class ApplicationsController : ControllerBase
             return StatusCode(500, new { message = "An error occurred while deleting the application" });
         }
     }
+}
+
+public class DecisionRequest
+{
+    public string Decision { get; set; } = string.Empty; // Selected, Rejected, OnHold
 }

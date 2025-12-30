@@ -16,7 +16,9 @@ public class Application
     public DateTime AppliedDate { get; set; } = DateTime.UtcNow;
 
     [StringLength(50)]
-    public string Status { get; set; } = "Applied"; // Applied, Screening, Interview, Offered, Rejected, Accepted
+    public string Status { get; set; } = "Applied"; // Applied, Screening, Interview, Offered, Rejected, Accepted, OnHold, Selected
+
+    public int? CurrentRound { get; set; } // Current interview round the candidate is in
 
     public string? ResumeUrl { get; set; }
     public string? CoverLetter { get; set; }

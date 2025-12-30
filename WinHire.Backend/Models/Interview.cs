@@ -7,7 +7,7 @@ public class Interview
     public int Id { get; set; }
 
     public int ApplicationId { get; set; }
-    public Application Application { get; set; } = null!;
+    public Application? Application { get; set; }
 
     [StringLength(100)]
     public string Title { get; set; } = string.Empty;

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WinHire.Backend.Data;
 using WinHire.Backend.Models;
 
@@ -16,96 +17,135 @@ public class DatabaseSeeder
 
     public async Task SeedAsync()
     {
-        if (_context.Users.Any() && _context.Users.Count() > 1)
-        {
-            _logger.LogInformation("Database already seeded");
-            return;
-        }
-
         _logger.LogInformation("Starting database seeding...");
 
+        // Always check and update users to ensure correct passwords
         await SeedUsersAsync();
-        await SeedJobsAsync();
-        await SeedCandidatesAsync();
-        await SeedApplicationsAsync();
-        await SeedInterviewsAsync();
-        await SeedFeedbackAsync();
+        
+        // Only seed other data if it doesn't exist
+        if (!_context.Jobs.Any())
+        {
+            await SeedJobsAsync();
+        }
+        
+        if (!_context.Candidates.Any())
+        {
+            await SeedCandidatesAsync();
+        }
+        
+        if (!_context.Applications.Any())
+        {
+            await SeedApplicationsAsync();
+        }
+        
+        if (!_context.Interviews.Any())
+        {
+            await SeedInterviewsAsync();
+        }
+        
+        if (!_context.Feedbacks.Any())
+        {
+            await SeedFeedbackAsync();
+        }
 
-        await _context.SaveChangesAsync();
         _logger.LogInformation("Database seeding completed!");
     }
 
     private async Task SeedUsersAsync()
     {
-        if (_context.Users.Count() > 1) return;
+        // Check each user individually and only add if they don't exist
+        var usersToAdd = new List<User>();
+        var usersUpdated = 0;
 
-        var users = new[]
+        var userConfigs = new[]
         {
-            new User
-            {
-                Name = "Sarah Johnson",
-                Email = "sarah.johnson@winhire.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("recruiter123"),
-                Role = UserRoles.Recruiter,
-                Department = "HR",
-                IsActive = true,
-                CreatedAt = DateTime.UtcNow.AddMonths(-6)
-            },
-            new User
-            {
-                Name = "Michael Chen",
-                Email = "michael.chen@winhire.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("manager123"),
-                Role = UserRoles.HiringManager,
-                Department = "Engineering",
-                IsActive = true,
-                CreatedAt = DateTime.UtcNow.AddMonths(-5)
-            },
-            new User
-            {
-                Name = "Emily Rodriguez",
-                Email = "emily.rodriguez@winhire.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("panelist123"),
-                Role = UserRoles.Panelist,
-                Department = "Engineering",
-                IsActive = true,
-                CreatedAt = DateTime.UtcNow.AddMonths(-4)
-            },
-            new User
-            {
-                Name = "David Kim",
-                Email = "david.kim@winhire.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("panelist123"),
-                Role = UserRoles.Panelist,
-                Department = "Product",
-                IsActive = true,
-                CreatedAt = DateTime.UtcNow.AddMonths(-3)
-            },
-            new User
-            {
-                Name = "Lisa Anderson",
-                Email = "lisa.anderson@winhire.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("recruiter123"),
-                Role = UserRoles.Recruiter,
-                Department = "HR",
-                IsActive = true,
-                CreatedAt = DateTime.UtcNow.AddMonths(-2)
-            },
-            new User
-            {
-                Name = "James Wilson",
-                Email = "james.wilson@winhire.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("manager123"),
-                Role = UserRoles.HiringManager,
-                Department = "Product",
-                IsActive = true,
-                CreatedAt = DateTime.UtcNow.AddMonths(-1)
-            }
+            // Admin & Recruiters
+            new { Name = "Admin User", Email = "admin@winwire.com", Password = "admin123", Role = UserRoles.Admin, Department = "IT", Specialization = (string?)null, Months = -6 },
+            new { Name = "Lisa Anderson", Email = "lisa.anderson@winwire.com", Password = "recruiter123", Role = UserRoles.Recruiter, Department = "HR", Specialization = (string?)null, Months = -6 },
+            new { Name = "Sarah Martinez", Email = "sarah.martinez@winwire.com", Password = "recruiter123", Role = UserRoles.Recruiter, Department = "HR", Specialization = (string?)null, Months = -5 },
+            
+            // Hiring Managers
+            new { Name = "James Wilson", Email = "james.wilson@winwire.com", Password = "manager123", Role = UserRoles.HiringManager, Department = "Engineering", Specialization = (string?)null, Months = -5 },
+            new { Name = "Robert Chen", Email = "robert.chen@winwire.com", Password = "manager123", Role = UserRoles.HiringManager, Department = "Product", Specialization = (string?)null, Months = -4 },
+            new { Name = "Michelle Brown", Email = "michelle.brown@winwire.com", Password = "manager123", Role = UserRoles.HiringManager, Department = "QA", Specialization = (string?)null, Months = -4 },
+            
+            // Engineering Panelists - Technical
+            new { Name = "David Kim", Email = "david.kim@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Engineering", Specialization = "Technical", Months = -4 },
+            new { Name = "Priya Sharma", Email = "priya.sharma@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Engineering", Specialization = "Technical", Months = -4 },
+            new { Name = "Alex Johnson", Email = "alex.johnson@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Engineering", Specialization = "Technical", Months = -3 },
+            new { Name = "Maria Garcia", Email = "maria.garcia@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Engineering", Specialization = "Technical", Months = -3 },
+            new { Name = "Kevin Zhang", Email = "kevin.zhang@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Engineering", Specialization = "Technical", Months = -3 },
+            
+            // Product Panelists - Managerial & Behavioral
+            new { Name = "Emily Davis", Email = "emily.davis@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Product", Specialization = "Managerial,Behavioral", Months = -3 },
+            new { Name = "Michael Lee", Email = "michael.lee@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Product", Specialization = "Managerial", Months = -2 },
+            new { Name = "Sophia Patel", Email = "sophia.patel@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Product", Specialization = "Managerial", Months = -2 },
+            
+            // QA Panelists - Technical
+            new { Name = "Daniel Rodriguez", Email = "daniel.rodriguez@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "QA", Specialization = "Technical", Months = -2 },
+            new { Name = "Jessica Thompson", Email = "jessica.thompson@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "QA", Specialization = "Technical", Months = -2 },
+            new { Name = "Rahul Kumar", Email = "rahul.kumar@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "QA", Specialization = "Technical", Months = -1 },
+            
+            // DevOps Panelists - Technical
+            new { Name = "Chris Anderson", Email = "chris.anderson@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "DevOps", Specialization = "Technical", Months = -2 },
+            new { Name = "Nina Gupta", Email = "nina.gupta@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "DevOps", Specialization = "Technical", Months = -1 },
+            
+            // Data Science Panelists - Technical
+            new { Name = "Thomas White", Email = "thomas.white@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Data Science", Specialization = "Technical", Months = -1 },
+            new { Name = "Amanda Liu", Email = "amanda.liu@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Data Science", Specialization = "Technical", Months = -1 },
+            
+            // UI/UX Panelists - Technical & Behavioral
+            new { Name = "Oliver Martin", Email = "oliver.martin@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Design", Specialization = "Technical,Behavioral", Months = -1 },
+            new { Name = "Emma Wilson", Email = "emma.wilson@winwire.com", Password = "panelist123", Role = UserRoles.Panelist, Department = "Design", Specialization = "Behavioral", Months = -1 }
         };
 
-        await _context.Users.AddRangeAsync(users);
-        await _context.SaveChangesAsync();
-        _logger.LogInformation("Seeded {Count} users", users.Length);
+        foreach (var config in userConfigs)
+        {
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == config.Email);
+            if (existingUser == null)
+            {
+                usersToAdd.Add(new User
+                {
+                    Name = config.Name,
+                    Email = config.Email,
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(config.Password),
+                    Role = config.Role,
+                    Department = config.Department,
+                    Specialization = config.Specialization,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddMonths(config.Months)
+                });
+            }
+            else
+            {
+                // Update existing user's password to ensure it matches expected password
+                existingUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(config.Password);
+                existingUser.Name = config.Name;
+                existingUser.Role = config.Role;
+                existingUser.Department = config.Department;
+                existingUser.Specialization = config.Specialization;
+                existingUser.IsActive = true;
+                usersUpdated++;
+            }
+        }
+
+        if (usersToAdd.Any())
+        {
+            await _context.Users.AddRangeAsync(usersToAdd);
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Seeded {Count} new users", usersToAdd.Count);
+        }
+        
+        if (usersUpdated > 0)
+        {
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Updated {Count} existing users", usersUpdated);
+        }
+        
+        if (!usersToAdd.Any() && usersUpdated == 0)
+        {
+            _logger.LogInformation("All users already exist with correct data");
+        }
     }
 
     private async Task SeedJobsAsync()
@@ -588,11 +628,12 @@ public class DatabaseSeeder
                 ApplicationId = interview.ApplicationId,
                 ProvidedByUserId = panelist.Id,
                 TechnicalSkillsRating = 3 + (i % 3),
-                CommunicationRating = 4 + (i % 2),
                 ProblemSolvingRating = 3 + (i % 3),
+                CommunicationRating = 4 + (i % 2),
                 CulturalFitRating = 4 + (i % 2),
                 OverallRating = 4 + (i % 2),
-                Comments = $"Feedback for interview: {interview.Title}. Good technical skills and communication.",
+                Comments = $"Feedback for interview: {interview.Title}. Good technical skills and communication. " +
+                          (i % 3 == 0 ? "Needs more experience with agile methodologies." : "Strong fit for the team."),
                 Recommendation = i % 2 == 0 ? "Hire" : "StrongHire",
                 CreatedAt = DateTime.UtcNow.AddDays(-i)
             });

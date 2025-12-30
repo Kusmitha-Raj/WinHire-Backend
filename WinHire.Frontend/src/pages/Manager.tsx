@@ -3,7 +3,7 @@ import { api } from "../api/api";
 
 export default function Manager(){
   const [list,setList]=useState<any[]>([]);
-  const [form,setForm]=useState({
+  const [form]=useState({
     code:"",
     practiceId:1,
     positionTitle:"",

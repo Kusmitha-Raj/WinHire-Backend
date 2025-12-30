@@ -3,7 +3,7 @@ import { api } from "../api/api";
 
 export default function Panelist(){
   const [list,setList]=useState<any[]>([]);
-  const [feedback,setFeedback]=useState({
+  const [feedback]=useState({
     interviewId:0,
     technicalScore:5,
     communicationScore:5,

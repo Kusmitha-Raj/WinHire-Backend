@@ -19,6 +19,11 @@ export const userAPI = {
     return response.data;
   },
 
+  getPanelists: async (): Promise<User[]> => {
+    const response = await api.get('/users/panelists');
+    return response.data;
+  },
+
   create: async (user: User & { password: string }): Promise<User> => {
     const response = await api.post('/users', user);
     return response.data;

@@ -3,7 +3,7 @@ import { api } from "../api/api";
 
 export default function PM(){
   const [list,setList]=useState<any[]>([]);
-  const [decision,setDecision]=useState({
+  const [decision]=useState({
     candidateReqId:0,
     decision:"APPROVED",
     comments:""

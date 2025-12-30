@@ -13,21 +13,21 @@ public class Feedback
     public Application? Application { get; set; }
 
     public int ProvidedByUserId { get; set; }
-    public User ProvidedBy { get; set; } = null!;
+    public User? ProvidedBy { get; set; }
 
-    [Range(1, 5)]
+    [Range(1, 10)]
     public int? TechnicalSkillsRating { get; set; }
 
-    [Range(1, 5)]
+    [Range(1, 10)]
     public int? CommunicationRating { get; set; }
 
-    [Range(1, 5)]
+    [Range(1, 10)]
     public int? ProblemSolvingRating { get; set; }
 
-    [Range(1, 5)]
+    [Range(1, 10)]
     public int? CulturalFitRating { get; set; }
 
-    [Range(1, 5)]
+    [Range(1, 10)]
     public int? OverallRating { get; set; }
 
     [Required]

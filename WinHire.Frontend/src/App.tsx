@@ -1,58 +1,99 @@
-import './index.css';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { MsalProvider } from '@azure/msal-react';
+import { PublicClientApplication } from '@azure/msal-browser';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import CandidateList from './pages/CandidateList';
-import JobList from './pages/JobList';
-import ApplicationList from './pages/ApplicationList';
-import InterviewList from './pages/InterviewList';
-import UserList from './pages/UserList';
+import AdminDashboard from './pages/AdminDashboard';
+import PanelistDashboard from './pages/PanelistDashboard';
+import RecruiterDashboard from './pages/RecruiterDashboard';
+import HiringManagerDashboard from './pages/HiringManagerDashboard';
+import './index.css';
 
-function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
+const msalConfig = {
+  auth: {
+    clientId: 'your-client-id',
+    authority: 'https://login.microsoftonline.com/common',
+    redirectUri: window.location.origin,
+  },
+};
+
+const pca = new PublicClientApplication(msalConfig);
+
+function ProtectedRoute({ children, allowedRoles }: { children: JSX.Element; allowedRoles: string[] }) {
+  const { user } = useAuth();
   
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="text-xl text-gray-600">Loading...</div>
-      </div>
-    );
+  if (!user) {
+    return <Navigate to="/login" replace />;
   }
   
-  return user ? <>{children}</> : <Navigate to="/login" replace />;
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  return children;
 }
 
 function AppRoutes() {
+  const { user } = useAuth();
+  
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={user ? <Navigate to={getDashboardRoute(user.role)} /> : <Login />} />
       <Route
-        path="/"
+        path="/admin"
         element={
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
+          <ProtectedRoute allowedRoles={['Admin']}>
+            <AdminDashboard />
+          </ProtectedRoute>
         }
-      >
-        <Route index element={<Navigate to="/candidates" replace />} />
-        <Route path="candidates" element={<CandidateList />} />
-        <Route path="jobs" element={<JobList />} />
-        <Route path="applications" element={<ApplicationList />} />
-        <Route path="interviews" element={<InterviewList />} />
-        <Route path="users" element={<UserList />} />
-      </Route>
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      />
+      <Route
+        path="/panelist"
+        element={
+          <ProtectedRoute allowedRoles={['Panelist']}>
+            <PanelistDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/recruiter"
+        element={
+          <ProtectedRoute allowedRoles={['Recruiter']}>
+            <RecruiterDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/hiring-manager"
+        element={
+          <ProtectedRoute allowedRoles={['HiringManager']}>
+            <HiringManagerDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }
 
+function getDashboardRoute(role: string): string {
+  switch (role) {
+    case 'Admin': return '/admin';
+    case 'Panelist': return '/panelist';
+    case 'Recruiter': return '/recruiter';
+    case 'HiringManager': return '/hiring-manager';
+    default: return '/login';
+  }
+}
+
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </AuthProvider>
+    <MsalProvider instance={pca}>
+      <AuthProvider>
+        <Router>
+          <AppRoutes />
+        </Router>
+      </AuthProvider>
+    </MsalProvider>
   );
 }

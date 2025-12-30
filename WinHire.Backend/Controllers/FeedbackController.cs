@@ -102,16 +102,24 @@ public class FeedbackController : ControllerBase
     {
         try
         {
+            // Remove navigation property validation errors
+            ModelState.Remove("Interview");
+            ModelState.Remove("Application");
+            ModelState.Remove("ProvidedBy");
+            
             if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Invalid model state: {Errors}", string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)));
                 return BadRequest(ModelState);
+            }
 
             var created = await _feedbackService.CreateFeedbackAsync(feedback);
             return CreatedAtAction(nameof(GetFeedback), new { id = created.Id }, created);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error creating feedback");
-            return StatusCode(500, new { message = "An error occurred while creating the feedback" });
+            _logger.LogError(ex, "Error creating feedback: {Message}", ex.Message);
+            return StatusCode(500, new { message = $"An error occurred while creating the feedback: {ex.Message}" });
         }
     }
 

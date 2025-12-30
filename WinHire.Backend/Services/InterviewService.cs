@@ -51,6 +51,7 @@ public class InterviewService : IInterviewService
                 .ThenInclude(a => a.Candidate)
             .Include(i => i.Application)
                 .ThenInclude(a => a.Job)
+            .Include(i => i.Feedbacks)
             .Where(i => i.InterviewerId == interviewerId)
             .ToListAsync();
     }

@@ -5,8 +5,12 @@ using System.Text;
 using WinHire.Backend.Data;
 using WinHire.Backend.Repositories;
 using WinHire.Backend.Services;
+using WinHire.Backend.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add HttpClient Factory
+builder.Services.AddHttpClient();
 
 // Add services to the container
 builder.Services.AddControllers()
@@ -92,6 +96,9 @@ builder.Services.AddScoped<IApplicationService, ApplicationService>();
 builder.Services.AddScoped<IInterviewService, InterviewService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 
+// Background Services
+builder.Services.AddHostedService<InterviewStatusUpdateService>();
+
 // CORS
 builder.Services.AddCors(options =>
 {
@@ -116,20 +123,22 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     dbContext.Database.EnsureCreated();
     
-    // Ensure admin user has correct password hash
-    var adminUser = dbContext.Users.FirstOrDefault(u => u.Email == "admin@winhire.com");
-    if (adminUser != null)
+    app.Logger.LogInformation("Database initialized");
+    
+    // Apply manual migration for new columns
+    try
     {
-        // Check if password needs to be rehashed (if it's the placeholder)
-        if (adminUser.PasswordHash.StartsWith("$2a$11$5xKxZ5KJ"))
+        var connectionString = dbContext.Database.GetConnectionString();
+        if (!string.IsNullOrEmpty(connectionString))
         {
-            adminUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123");
-            dbContext.SaveChanges();
-            app.Logger.LogInformation("Admin password initialized");
+            app.Logger.LogInformation("Applying manual migration for new columns...");
+            ManualMigration.ApplyMigration(connectionString);
         }
     }
-    
-    app.Logger.LogInformation("Database initialized");
+    catch (Exception ex)
+    {
+        app.Logger.LogWarning(ex, "Manual migration failed or already applied");
+    }
     
     // Seed database with sample data
     var seeder = new WinHire.Backend.Services.DatabaseSeeder(

@@ -5,9 +5,10 @@ type Props = {
   title: string;
   setPage?: (p: string)=>void;
   children: ReactNode;
+  userRole?: string;
 };
 
-export default function DashboardLayout({ title, children, setPage }: Props) {
+export default function DashboardLayout({ title, children, setPage, userRole }: Props) {
   return (
     <div className="app">
 
@@ -19,7 +20,9 @@ export default function DashboardLayout({ title, children, setPage }: Props) {
 
           <div className="section">Recruiter</div>
           <a onClick={()=>setPage?.("recruiter-add")}>Add Candidate</a>
-          <a onClick={()=>setPage?.("recruiter-interviews")}>Interviews</a>
+          {userRole !== 'Panelist' && (
+            <a onClick={()=>setPage?.("recruiter-interviews")}>Interviews</a>
+          )}
 
           <div className="section">Manager</div>
           <a onClick={()=>setPage?.("manager-req")}>Requisitions</a>

@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { api, setAuth, removeAuth } from '../api/api';
+import { authAPI } from '../api/authApi';
+import { setAuth, removeAuth } from '../api/api';
 
 interface User {
   id: number;
@@ -8,14 +9,10 @@ interface User {
   role: string;
 }
 
-interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
 interface AuthContextType {
   user: User | null;
-  login: (credentials: LoginCredentials) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  loginWithMicrosoft: (accessToken: string) => Promise<void>;
   logout: () => void;
   loading: boolean;
 }
@@ -27,7 +24,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is already logged in
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -35,12 +31,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setLoading(false);
   }, []);
 
-  const login = async (credentials: LoginCredentials) => {
-    const response = await api.post('/auth/login', credentials);
-    const { token, user } = response.data;
-    setAuth(token);
-    setUser(user);
-    localStorage.setItem('user', JSON.stringify(user));
+  const login = async (email: string, password: string) => {
+    const response = await authAPI.login(email, password);
+    setAuth(response.token);
+    setUser(response.user);
+    localStorage.setItem('user', JSON.stringify(response.user));
+  };
+
+  const loginWithMicrosoft = async (accessToken: string) => {
+    const response = await authAPI.microsoftLogin(accessToken);
+    setAuth(response.token);
+    setUser(response.user);
+    localStorage.setItem('user', JSON.stringify(response.user));
   };
 
   const logout = () => {
@@ -49,7 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, loginWithMicrosoft, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

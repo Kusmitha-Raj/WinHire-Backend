@@ -23,11 +23,23 @@ public class CandidatesController : ControllerBase
     /// Get all candidates
     /// </summary>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Candidate>>> GetAllCandidates()
+    public async Task<ActionResult<IEnumerable<Candidate>>> GetAllCandidates([FromQuery] string? search)
     {
         try
         {
             var candidates = await _candidateService.GetAllCandidatesAsync();
+            
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                candidates = candidates.Where(c =>
+                    c.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                    c.Email.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                    c.Phone.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                    c.RoleApplied.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                    c.Status.Contains(search, StringComparison.OrdinalIgnoreCase)
+                );
+            }
+            
             return Ok(candidates);
         }
         catch (Exception ex)
@@ -55,6 +67,45 @@ public class CandidatesController : ControllerBase
         {
             _logger.LogError(ex, "Error retrieving candidate {Id}", id);
             return StatusCode(500, new { message = "An error occurred while retrieving the candidate" });
+        }
+    }
+
+    /// <summary>
+    /// Get candidate details with interviews and feedback
+    /// </summary>
+    [HttpGet("{id}/details")]
+    public async Task<ActionResult> GetCandidateDetails(int id)
+    {
+        try
+        {
+            var details = await _candidateService.GetCandidateDetailsAsync(id);
+            if (details == null)
+                return NotFound(new { message = $"Candidate with ID {id} not found" });
+
+            return Ok(details);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving candidate details {Id}", id);
+            return StatusCode(500, new { message = "An error occurred while retrieving candidate details" });
+        }
+    }
+
+    /// <summary>
+    /// Get candidates assigned to a specific panelist (based on their interviews)
+    /// </summary>
+    [HttpGet("panelist/{panelistId}")]
+    public async Task<ActionResult<IEnumerable<Candidate>>> GetPanelistCandidates(int panelistId)
+    {
+        try
+        {
+            var candidates = await _candidateService.GetPanelistCandidatesAsync(panelistId);
+            return Ok(candidates);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving candidates for panelist {PanelistId}", panelistId);
+            return StatusCode(500, new { message = "An error occurred while retrieving candidates" });
         }
     }
 

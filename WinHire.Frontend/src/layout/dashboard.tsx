@@ -4,8 +4,10 @@ import Recruiter from "../pages/Recruiter";
 import Manager from "../pages/Manager";
 import Panelist from "../pages/Panelist";
 import PM from "../pages/PM";
+import { useAuth } from "../context/AuthContext";
 
 export default function Dashboard() {
+  const { user } = useAuth();
   const [page, setPage] = useState("recruiter");
 
   function render() {
@@ -24,7 +26,7 @@ export default function Dashboard() {
   }
 
   return (
-    <DashboardLayout title="WinHire Dashboard" setPage={setPage}>
+    <DashboardLayout title="WinHire Dashboard" setPage={setPage} userRole={user?.role}>
       {render()}
     </DashboardLayout>
   );

@@ -25,6 +25,9 @@ public class User
     [StringLength(50)]
     public string? Department { get; set; }
 
+    [StringLength(200)]
+    public string? Specialization { get; set; } // For Panelists: Technical, HR, Managerial, Behavioral (comma-separated)
+
     public bool IsActive { get; set; } = true;
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

@@ -50,6 +50,12 @@ public class FeedbackService : IFeedbackService
     public async Task<Feedback> CreateFeedbackAsync(Feedback feedback)
     {
         feedback.CreatedAt = DateTime.UtcNow;
+        
+        // Ensure navigation properties are null to avoid tracking issues
+        feedback.Interview = null;
+        feedback.Application = null;
+        feedback.ProvidedBy = null;
+        
         _context.Feedbacks.Add(feedback);
         await _context.SaveChangesAsync();
         return feedback;
@@ -62,8 +68,8 @@ public class FeedbackService : IFeedbackService
             return null;
 
         existing.TechnicalSkillsRating = feedback.TechnicalSkillsRating;
-        existing.CommunicationRating = feedback.CommunicationRating;
         existing.ProblemSolvingRating = feedback.ProblemSolvingRating;
+        existing.CommunicationRating = feedback.CommunicationRating;
         existing.CulturalFitRating = feedback.CulturalFitRating;
         existing.OverallRating = feedback.OverallRating;
         existing.Comments = feedback.Comments;

@@ -102,16 +102,24 @@ public class InterviewsController : ControllerBase
     {
         try
         {
+            // Remove navigation property validation errors
+            ModelState.Remove("Application");
+            ModelState.Remove("Interviewer");
+            ModelState.Remove("Feedbacks");
+            
             if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Invalid model state: {Errors}", string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)));
                 return BadRequest(ModelState);
+            }
 
             var created = await _interviewService.CreateInterviewAsync(interview);
             return CreatedAtAction(nameof(GetInterview), new { id = created.Id }, created);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error creating interview");
-            return StatusCode(500, new { message = "An error occurred while creating the interview" });
+            _logger.LogError(ex, "Error creating interview: {Message}", ex.Message);
+            return StatusCode(500, new { message = $"An error occurred while creating the interview: {ex.Message}" });
         }
     }
 

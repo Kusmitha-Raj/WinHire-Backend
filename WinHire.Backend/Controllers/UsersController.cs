@@ -76,6 +76,59 @@ public class UsersController : ControllerBase
     }
 
     /// <summary>
+    /// Get all panelists for interview assignment
+    /// </summary>
+    [HttpGet("panelists")]
+    public async Task<ActionResult<IEnumerable<object>>> GetPanelists()
+    {
+        try
+        {
+            var panelists = await _userService.GetUsersByRoleAsync(UserRoles.Panelist);
+            var result = panelists.Select(p => new
+            {
+                p.Id,
+                p.Name,
+                p.Email,
+                p.Department
+            });
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving panelists");
+            return StatusCode(500, new { message = "An error occurred while retrieving panelists" });
+        }
+    }
+
+    /// <summary>
+    /// Create new user
+    /// </summary>
+    [HttpPost]
+    public async Task<ActionResult<User>> CreateUser([FromBody] CreateUserRequest request)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = new User
+            {
+                Name = request.Name,
+                Email = request.Email,
+                Role = request.Role
+            };
+
+            var createdUser = await _userService.CreateUserAsync(user, request.Password);
+            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating user");
+            return StatusCode(500, new { message = "An error occurred while creating the user: " + ex.Message });
+        }
+    }
+
+    /// <summary>
     /// Update user
     /// </summary>
     [HttpPut("{id}")]
@@ -119,4 +172,12 @@ public class UsersController : ControllerBase
             return StatusCode(500, new { message = "An error occurred while deleting the user" });
         }
     }
+}
+
+public class CreateUserRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+    public string Role { get; set; } = string.Empty;
 }

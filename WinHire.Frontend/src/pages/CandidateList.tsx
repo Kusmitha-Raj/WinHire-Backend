@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { candidateAPI, type Candidate, AllStatuses, CandidateStatus } from '../api/candidateApi';
+import { candidateAPI, Candidate, AllStatuses, CandidateStatus } from '../api/candidateApi';
 
 const CandidateList: React.FC = () => {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
@@ -260,7 +260,7 @@ const CandidateList: React.FC = () => {
                 {candidates.length === 0 ? (
                   <tr>
                     <td colSpan={8} className="px-6 py-12 text-center text-gray-500">
-                      <div className="text-xl mb-4 font-semibold text-gray-400">No Candidates</div>
+                      <div className="text-5xl mb-4">📋</div>
                       <div className="text-lg font-semibold">No candidates yet</div>
                       <div className="text-sm">Add your first candidate to get started</div>
                     </td>

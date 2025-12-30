@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useMsal } from '@azure/msal-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
@@ -7,8 +7,8 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const { login, loginWithMicrosoft } = useAuth();
+  const { instance } = useMsal();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,8 +16,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await login({ email, password });
-      navigate('/');
+      await login(email, password);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Invalid email or password');
     } finally {
@@ -25,15 +24,25 @@ export default function Login() {
     }
   };
 
+  const handleMicrosoftLogin = async () => {
+    try {
+      setLoading(true);
+      const response = await instance.loginPopup({
+        scopes: ['user.read'],
+      });
+      await loginWithMicrosoft(response.accessToken);
+    } catch (err) {
+      setError('Microsoft login failed');
+      setLoading(false);
+    }
+  };
+
   const quickLogin = async (userEmail: string, userPassword: string) => {
-    setEmail(userEmail);
-    setPassword(userPassword);
     setError('');
     setLoading(true);
 
     try {
-      await login({ email: userEmail, password: userPassword });
-      navigate('/');
+      await login(userEmail, userPassword);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Login failed');
     } finally {
@@ -109,31 +118,56 @@ export default function Login() {
               <div className="w-full border-t border-gray-300" />
             </div>
             <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">Or sign in with</span>
+            </div>
+          </div>
+
+          <button
+            onClick={handleMicrosoftLogin}
+            disabled={loading}
+            className="mt-4 w-full flex justify-center items-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <svg className="w-5 h-5 mr-2" viewBox="0 0 23 23" fill="none">
+              <path d="M11 11h11V0H11v11z" fill="#f25022"/>
+              <path d="M0 11h11V0H0v11z" fill="#00a4ef"/>
+              <path d="M11 22.5h11v-11H11v11z" fill="#ffb900"/>
+              <path d="M0 22.5h11v-11H0v11z" fill="#7fba00"/>
+            </svg>
+            Sign in with Microsoft
+          </button>
+        </div>
+
+        <div className="mt-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300" />
+            </div>
+            <div className="relative flex justify-center text-sm">
               <span className="px-2 bg-white text-gray-500">Quick Login (Demo)</span>
             </div>
           </div>
 
           <div className="mt-4 grid grid-cols-2 gap-3">
             <button
-              onClick={() => quickLogin('admin@winhire.com', 'admin123')}
+              onClick={() => quickLogin('admin@winwire.com', 'admin123')}
               className="flex flex-col items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               <span>Admin</span>
             </button>
             <button
-              onClick={() => quickLogin('recruiter@winhire.com', 'recruiter123')}
+              onClick={() => quickLogin('lisa.anderson@winwire.com', 'recruiter123')}
               className="flex flex-col items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               <span>Recruiter</span>
             </button>
             <button
-              onClick={() => quickLogin('manager@winhire.com', 'manager123')}
+              onClick={() => quickLogin('james.wilson@winwire.com', 'manager123')}
               className="flex flex-col items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               <span>Manager</span>
             </button>
             <button
-              onClick={() => quickLogin('panelist@winhire.com', 'panelist123')}
+              onClick={() => quickLogin('david.kim@winwire.com', 'panelist123')}
               className="flex flex-col items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               <span>Panelist</span>

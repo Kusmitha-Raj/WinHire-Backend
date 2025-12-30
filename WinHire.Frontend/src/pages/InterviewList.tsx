@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { interviewAPI, type Interview } from '../api/interviewApi';
 import { applicationAPI, type Application } from '../api/applicationApi';
 import { userAPI, type User } from '../api/userApi';
 
 export default function InterviewList() {
+  const { user } = useAuth();
   const [interviews, setInterviews] = useState<Interview[]>([]);
   const [applications, setApplications] = useState<Application[]>([]);
   const [users, setUsers] = useState<User[]>([]);
@@ -11,10 +14,17 @@ export default function InterviewList() {
   const [error, setError] = useState<string | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
 
+  // Redirect panelists away from this page
+  if (user?.role === 'Panelist') {
+    return <Navigate to="/candidates" replace />;
+  }
+
   const [formData, setFormData] = useState<Interview>({
     applicationId: 0,
-    interviewerId: 0,
+    title: '',
+    interviewerId: undefined,
     scheduledDateTime: '',
+    durationMinutes: 60,
     type: 'Technical',
     status: 'Scheduled',
     meetingLink: '',
@@ -47,12 +57,23 @@ export default function InterviewList() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await interviewAPI.create(formData);
+      // Generate title from type if not provided
+      const interviewData = {
+        ...formData,
+        title: formData.title || `${formData.type} Interview`,
+        // Remove interviewerId if it's 0 or undefined
+        interviewerId: formData.interviewerId && formData.interviewerId > 0 ? formData.interviewerId : undefined,
+        durationMinutes: formData.durationMinutes || 60
+      };
+      console.log('Creating interview:', interviewData);
+      await interviewAPI.create(interviewData);
+      alert('Interview created successfully!');
       resetForm();
       loadData();
-    } catch (err) {
-      alert('Failed to create interview');
-      console.error(err);
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || err.message || 'Failed to create interview';
+      alert(`Failed to create interview: ${errorMessage}`);
+      console.error('Full error:', err);
     }
   };
 
@@ -84,8 +105,10 @@ export default function InterviewList() {
   const resetForm = () => {
     setFormData({
       applicationId: 0,
-      interviewerId: 0,
+      title: '',
+      interviewerId: undefined,
       scheduledDateTime: '',
+      durationMinutes: 60,
       type: 'Technical',
       status: 'Scheduled',
       meetingLink: '',
@@ -103,7 +126,7 @@ export default function InterviewList() {
     return colors[status] || 'bg-gray-100 text-gray-800';
   };
 
-  const getTypeIcon = (type: string) => {
+  const getTypeIcon = (_type: string) => {
     return '';
   };
 
@@ -247,7 +270,7 @@ export default function InterviewList() {
                 </div>
                 <div className="mt-3 space-y-2">
                   <div className="flex items-center space-x-2">
-                    <span className={`px-2 py-1 text-xs font-medium rounded ${getStatusColor(interview.status)}`}>
+                    <span className={`px-2 py-1 text-xs font-medium rounded ${getStatusColor(interview.status || 'Scheduled')}`}>
                       {interview.status}
                     </span>
                   </div>

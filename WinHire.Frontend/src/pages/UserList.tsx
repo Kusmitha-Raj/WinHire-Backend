@@ -68,7 +68,7 @@ export default function UserList() {
     setShowAddForm(false);
   };
 
-  const getRoleIcon = (role: string) => {
+  const getRoleIcon = (_role: string) => {
     return '';
   };
 

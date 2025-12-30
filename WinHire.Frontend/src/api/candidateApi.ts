@@ -5,19 +5,46 @@ export interface Candidate {
   name: string;
   email: string;
   phone: string;
-  roleApplied: string;
-  status: string;
+  roleApplied?: string;
+  status?: string;
   createdOn?: string;
+  resumeUrl?: string;
+  skills?: string;
+  experience?: number;
+  appliedDate?: string;
+  notes?: string;
 }
 
+export const AllStatuses = ['Application Received', 'Under Review', 'Shortlisted', 'Interview Scheduled', 'Selected', 'Rejected'];
+
+export const CandidateStatus = {
+  ApplicationReceived: 'Application Received',
+  UnderReview: 'Under Review',
+  Shortlisted: 'Shortlisted',
+  InterviewScheduled: 'Interview Scheduled',
+  Selected: 'Selected',
+  Rejected: 'Rejected'
+};
+
 export const candidateAPI = {
-  getAll: async (): Promise<Candidate[]> => {
-    const response = await api.get('/candidates');
+  getAll: async (search?: string): Promise<Candidate[]> => {
+    const params = search ? { search } : {};
+    const response = await api.get('/candidates', { params });
+    return response.data;
+  },
+
+  getPanelistCandidates: async (panelistId: number): Promise<Candidate[]> => {
+    const response = await api.get(`/candidates/panelist/${panelistId}`);
     return response.data;
   },
 
   getById: async (id: number): Promise<Candidate> => {
     const response = await api.get(`/candidates/${id}`);
+    return response.data;
+  },
+
+  getDetails: async (id: number): Promise<any> => {
+    const response = await api.get(`/candidates/${id}/details`);
     return response.data;
   },
 
@@ -40,21 +67,3 @@ export const candidateAPI = {
     await api.delete(`/candidates/${id}`);
   }
 };
-
-export const CandidateStatus = {
-  ApplicationReceived: "Application Received",
-  UnderReview: "Under Review",
-  Shortlisted: "Shortlisted",
-  InterviewScheduled: "Interview Scheduled",
-  Selected: "Selected",
-  Rejected: "Rejected"
-};
-
-export const AllStatuses = [
-  CandidateStatus.ApplicationReceived,
-  CandidateStatus.UnderReview,
-  CandidateStatus.Shortlisted,
-  CandidateStatus.InterviewScheduled,
-  CandidateStatus.Selected,
-  CandidateStatus.Rejected
-];

@@ -15,6 +15,7 @@ public class AppDbContext : DbContext
     public DbSet<Application> Applications { get; set; }
     public DbSet<Interview> Interviews { get; set; }
     public DbSet<Feedback> Feedbacks { get; set; }
+    public DbSet<PanelistAvailability> PanelistAvailabilities { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -93,6 +94,13 @@ public class AppDbContext : DbContext
             .WithMany()
             .HasForeignKey(j => j.HiringManagerId)
             .OnDelete(DeleteBehavior.SetNull);
+
+        // PanelistAvailability configuration
+        modelBuilder.Entity<PanelistAvailability>()
+            .HasOne(pa => pa.Panelist)
+            .WithMany()
+            .HasForeignKey(pa => pa.PanelistId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         // Seed default admin user
         // Note: Password is "admin123" - hashed with BCrypt
